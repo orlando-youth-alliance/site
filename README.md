@@ -68,6 +68,29 @@ To override any theme partial/layout, copy it to the same relative path under `s
 
 ---
 
+## Publish Flow
+
+```
+  Editor saves record
+  in PocketBase CMS
+        │
+        │  webhook (on_content_change.pb.js)
+        ▼
+  GitHub Actions
+  workflow dispatch
+        │
+        ├─── Hugo build + deploy ──► GitHub Pages (live site)
+        │
+        │  PATCH /api/collections/pages/records/:id
+        │  (X-Deploy-Stamp: 1 header — hook ignores this)
+        ▼
+  last_deployed_at
+  stamped on all records
+  in PocketBase CMS
+```
+
+---
+
 ## CMS (Production)
 
 The `cms/` directory contains the production PocketBase deployment:

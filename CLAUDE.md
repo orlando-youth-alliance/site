@@ -39,8 +39,39 @@ Example (`site/layouts/pages/list.html`):
 
 Each section needs a `content/<section>/_index.md` to activate its layout.
 
+## Key File Map
+
+```
+site/                             ← repo root / working directory
+├── .github/workflows/hugo.yml    ← build + deploy to GitHub Pages; stamps last_deployed_at after deploy
+├── Makefile                      ← dev commands (dev, hugo, pb, build, deploy-cms, clean)
+├── pb_migrations/                ← PocketBase JS migrations (auto-run on startup)
+├── pb_data/                      ← local PocketBase data (gitignored)
+├── cms/
+│   ├── Dockerfile                ← PocketBase container (deploy from repo root)
+│   ├── fly.toml                  ← Fly.io config (app: oya-cms, region: iad)
+│   ├── pb_hooks/
+│   │   └── on_content_change.pb.js  ← dispatches GitHub Actions on record changes;
+│   │                                   skips dispatch if X-Deploy-Stamp header present
+│   └── pb_public/                ← static files served by PocketBase at /
+└── site/                         ← Hugo project
+    ├── hugo.toml                 ← base URL, theme
+    ├── config/_default/          ← production config (params, languages, menus)
+    ├── config/development/       ← local dev overrides (pocketbaseURL)
+    ├── layouts/
+    │   ├── _default/baseof.html  ← base HTML wrapper
+    │   ├── partials/home/hero.html   ← homepage hero + quick-links
+    │   ├── partials/header/fixed.html
+    │   └── pages/list.html       ← fetches pages from PocketBase via resources.GetRemote
+    ├── content/
+    │   ├── _index.md             ← homepage copy
+    │   └── pages/_index.md       ← activates pages list layout
+    └── assets/img/               ← logo, hero, section images
+```
+
 ## PocketBase Collections
-- `pages` — fields: `title`, `body` (HTML), `slug`, `published`
+- `pages` — fields: `title`, `body` (HTML), `slug`, `published`, `last_deployed_at`
+- Internal ID: `pbc_3945946014`
 
 ## CMS Deployment (Production)
 The `cms/` directory contains a standalone PocketBase deployment for production:

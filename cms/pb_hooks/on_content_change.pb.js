@@ -14,6 +14,10 @@ onRecordAfterCreateSuccess((e) => {
 });
 
 onRecordAfterUpdateSuccess((e) => {
+  if (e.requestInfo().headers["x-deploy-stamp"]) {
+    e.next();
+    return;
+  }
   $app.logger().info("onRecordAfterUpdateSuccess fired");
   $http.send({
     method: "POST",

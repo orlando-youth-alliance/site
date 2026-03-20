@@ -61,6 +61,7 @@ jobs:
             curl -sf -X PATCH \
               -H "Authorization: $PB_TOKEN" \
               -H "Content-Type: application/json" \
+              -H "X-Deploy-Stamp: 1" \
               -d "{\"last_deployed_at\": \"$now\"}" \
               "$PB_URL/api/collections/pages/records/$id"
           done
