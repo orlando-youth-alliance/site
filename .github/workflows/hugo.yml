@@ -47,3 +47,20 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Stamp last_deployed_at on all pages
+        env:
+          PB_URL: https://oya-cms.fly.dev
+          PB_TOKEN: ${{ secrets.POCKETBASE_TOKEN }}
+        run: |
+          ids=$(curl -sf -H "Authorization: $PB_TOKEN" \
+            "$PB_URL/api/collections/pages/records?perPage=500&fields=id" \
+            | jq -r '.items[].id')
+          now=$(date -u +"%Y-%m-%d %H:%M:%SZ")
+          for id in $ids; do
+            curl -sf -X PATCH \
+              -H "Authorization: $PB_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"last_deployed_at\": \"$now\"}" \
+              "$PB_URL/api/collections/pages/records/$id"
+          done
