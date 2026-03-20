@@ -1,0 +1,12 @@
+{{ define "main" }} {{ $url := printf "%s/api/collections/pages/records"
+site.Params.pocketbaseURL }} {{ $response := resources.GetRemote $url }} {{
+$data := $response | transform.Unmarshal }}
+<article class="pa3 pa4-ns">
+  {{ range $data.items }}
+  <section class="mb5">
+    <h2 class="f2">The page: {{ .title }}</h2>
+    <div class="lh-copy">{{ .body | safeHTML }}</div>
+  </section>
+  {{ end }}
+</article>
+{{ end }}

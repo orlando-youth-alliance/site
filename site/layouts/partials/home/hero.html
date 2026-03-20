@@ -1,0 +1,155 @@
+{{ $disableImageOptimization := .Site.Params.disableImageOptimization | default false }}
+{{ $disableHeroImageFilter := .Site.Params.homepage.disableHeroImageFilter | default false }}
+<article>
+  <div class="relative">
+    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
+    <div class="p-0">
+      <div class="relative overflow-hidden">
+        <div class="absolute inset-0">
+          {{ $useDefault := true }}
+          {{ $homepageImage := "" }}
+          {{ with .Site.Params.defaultBackgroundImage }}
+            {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+              {{ $homepageImage = resources.GetRemote . }}
+            {{ else }}
+              {{ $homepageImage = resources.Get . }}
+            {{ end }}
+          {{ end }}
+          {{ with .Site.Params.homepage.homepageImage }}
+            {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+              {{ $homepageImage = resources.GetRemote . }}
+              {{ $useDefault = false }}
+            {{ else }}
+              {{ $homepageImage = resources.Get . }}
+              {{ $useDefault = false }}
+            {{ end }}
+          {{ end }}
+          {{ if $homepageImage }}
+            {{ $style := "" }}
+            {{ $defaultPosition := cond $useDefault site.Params.imagePosition false }}
+            {{ with $.Params.imagePosition | default $defaultPosition }}
+              {{ $style = printf "object-position: %s;" . }}
+            {{ end }}
+            <img
+              class="h-full w-full object-cover nozoom mt-0 mr-0 mb-0 ml-0"
+              src="{{ $homepageImage.RelPermalink }}"
+              {{ if $style }}style="{{ $style | safeCSS }}"{{ end }}>
+            {{ if not $disableHeroImageFilter }}
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-600 dark:from-primary-600 dark:to-secondary-800 mix-blend-multiply"></div>
+            {{ else }}
+              <div
+                class="absolute inset-0 from-primary-500 to-secondary-600 dark:from-primary-600 dark:to-secondary-800 mix-blend-multiply"></div>
+            {{ end }}
+          {{ end }}
+        </div>
+        <div
+          class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8 flex flex-col items-center justify-center text">
+          {{ with .Site.Params.Author.image }}
+            {{ $authorImage := "" }}
+            {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+              {{ $authorImage = resources.GetRemote . }}
+            {{ else }}
+              {{ $authorImage = resources.Get . }}
+            {{ end }}
+            {{ if $authorImage }}
+              {{ $final := $authorImage }}
+              {{ $squareImage := $authorImage }}
+              {{ if not (or $disableImageOptimization (eq $authorImage.MediaType.SubType "svg")) }}
+                {{ $final = $authorImage.Fill (print "288x288 q" ( $.Site.Params.Author.imagequality | default "96" )) }}
+                {{ $shortSide := int (math.Min $authorImage.Width $authorImage.Height) }}
+                {{ $squareImage = $authorImage.Crop (printf "%dx%d" $shortSide $shortSide ) }}
+              {{ end }}
+              <img
+                class="mb-2 h-36 w-36 rounded-full"
+                width="144"
+                height="144"
+                alt="{{ $.Site.Params.Author.name | default `Author` }}"
+                src="{{ $final.RelPermalink }}"
+                data-zoom-src="{{ $squareImage.RelPermalink }}">
+            {{ end }}
+          {{ end }}
+          <div class="hero-title-card">
+          {{ if not $disableHeroImageFilter }}
+            <h1 class="mb-2 text-4xl font-extrabold text-neutral-200">
+              {{ .Site.Params.Author.name | default .Site.Title }}
+            </h1>
+            {{ with .Site.Params.Author.headline }}
+              <h2 class="mt-0 mb-0 text-xl text-neutral-300">
+                {{ . | markdownify }}
+              </h2>
+            {{ end }}
+          {{ else }}
+            <h1 class="mb-2 text-4xl font-extrabold text-neutral-800 dark:text-neutral-200">
+              {{ .Site.Params.Author.name | default .Site.Title }}
+            </h1>
+            {{ with .Site.Params.Author.headline }}
+              <h2 class="mt-0 mb-0 text-xl text-neutral-800 dark:text-neutral-300">
+                {{ . | markdownify }}
+              </h2>
+            {{ end }}
+          {{ end }}
+          <div class="mt-3 mb-10 text-2xl">
+            {{ with .Site.Params.Author.links }}
+              <div class="flex flex-wrap justify-center">
+                {{ range $links := . }}
+                  {{ range $name, $url := $links }}
+                    {{ $isEmail := eq $name "email" }}
+                    <a
+                      class="px-1 hover:text-primary-400
+                      {{ cond $disableHeroImageFilter `text-primary-300` `text-primary-800 dark:text-primary-200` }}
+                      {{ cond $isEmail `email-link` `` }}"
+                      href="{{ cond $isEmail "#" ($url | safeURL) }}"
+                      {{ if $isEmail }}
+                        data-email="{{ $url | base64Encode }}"
+                        data-subject="Contact"
+                      {{ end }}
+                      target="_blank"
+                      aria-label="{{ $name | title }}"
+                      title="{{ $name | title }}"
+                      rel="me noopener noreferrer">
+                      {{ partial "icon.html" $name }}
+                    </a>
+                  {{ end }}
+                {{ end }}
+              </div>
+            {{ end }}
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<div class="quick-links-panel">
+  <a href="/membership" class="quick-links-btn quick-links-membership">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="white" viewBox="0 0 24 24">
+      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+    </svg>
+    <span class="text-2xl font-bold leading-tight">Youth<br>Membership</span>
+  </a>
+  <a href="/events" class="quick-links-btn quick-links-events">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="white" viewBox="0 0 24 24">
+      <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+    </svg>
+    <span class="text-2xl font-bold leading-tight">Calendar of<br>Events</span>
+  </a>
+  <a href="/volunteer" class="quick-links-btn quick-links-volunteer">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="white" viewBox="0 0 24 24">
+      <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.731 3.68 2 6.5 2c1.704 0 3.432.682 5.5 2.857C14.068 2.682 15.796 2 17.5 2 20.32 2 23 3.731 23 7.191c0 .314-.018.628-.06.937L18 12l-2-2-4 4-2-2-4 4-1.78-1.78C3.85 17.145 7.41 19.366 12 21.593z"/>
+      <path d="M22.207 9.707l-6.5 6.5-2.5-2.5 1.414-1.414 1.086 1.086 5.086-5.086z"/>
+    </svg>
+    <span class="text-2xl font-bold leading-tight">Volunteer</span>
+  </a>
+  <a href="/donate" class="quick-links-btn quick-links-donate">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="white" viewBox="0 0 24 24">
+      <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+    </svg>
+    <span class="text-2xl font-bold leading-tight">Donate</span>
+  </a>
+</div>
+
+<section class="mx-auto max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 py-12 prose dark:prose-invert">
+  {{ .Content }}
+</section>

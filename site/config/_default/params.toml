@@ -1,0 +1,26 @@
+logo = "img/OYA-horizontal-white-dropshadow-text.png"
+
+colorScheme = "blowfish"
+defaultAppearance = "light"
+autoSwitchAppearance = true
+
+disableTextInHeader = true
+
+enableSearch = true
+enableCodeCopy = false
+
+[header]
+  layout = "fixed"
+
+[footer]
+  showMenu = true
+  showCopyright = true
+  showThemeAttribution = false
+  showAppearanceSwitcher = false
+  showScrollToTop = true
+
+[homepage]
+  layout = "hero"
+  homepageImage = "img/CoverImageOya.jpg"
+  showRecent = false
+  disableHeroImageFilter = true

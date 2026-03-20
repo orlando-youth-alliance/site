@@ -1,0 +1,59 @@
+/* START Header */
+.logo {
+  max-height: 80px !important;
+  max-width: 230px !important;
+}
+
+.header-minheight {
+  min-height: 88px;
+}
+/* END Header */
+
+/* START Hero */
+.hero-title-card {
+  background: rgba(987, 255, 255, 0.5);
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+}
+/* END Hero */
+
+/* START Quick links panel */
+.quick-links-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 1rem;
+}
+
+.quick-links-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.quick-links-btn:hover {
+  filter: brightness(1.1);
+  color: white;
+}
+
+.quick-links-membership {
+  background-color: #4ecdc4;
+}
+.quick-links-events {
+  background-color: #f7c948;
+}
+.quick-links-volunteer {
+  background-color: #5b8dd9;
+}
+.quick-links-donate {
+  background-color: #f07ec0;
+}
+/* END Quick links panel */

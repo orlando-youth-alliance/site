@@ -1,0 +1,21 @@
+disabled = false
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Orlando Youth Alliance"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  description = "A safe space for LGBT youth and young adults in Central Florida"
+
+[params.Author]
+  name = "Orlando Youth Alliance"
+  headline = "You Are Not Alone!"
+  bio = "A safe space for lesbian, gay, bisexual, transgender and questioning youth in Central Florida."
+  links = [
+    { facebook = "https://facebook.com/OrlandoYouthAlliance" },
+    { instagram = "https://instagram.com/orlandoyouthalliance" },
+  ]

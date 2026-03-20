@@ -1,0 +1,6 @@
+baseURL = 'https://orlando-youth-alliance.github.io/site'
+languageCode = 'en-us'
+title = 'Orlando Youth Alliance'
+theme = 'blowfish'
+[params]
+  pocketbaseURL = "https://oya-cms.fly.dev"
