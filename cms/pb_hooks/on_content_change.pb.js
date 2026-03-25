@@ -1,50 +1,75 @@
-function dispatchIfIdle() {
-  const token = $os.getenv("GITHUB_TOKEN")
-  const runsUrl = "https://api.github.com/repos/orlando-youth-alliance/site/actions/workflows/hugo.yml/runs"
-  const headers = {
-    Authorization: "Bearer " + token,
-    Accept: "application/vnd.github+json",
-  }
-
-  for (const status of ["queued", "in_progress"]) {
-    const res = $http.send({
-      method: "GET",
-      url: runsUrl + "?status=" + status + "&per_page=1",
-      headers,
-    })
-    const data = JSON.parse(res.raw)
-    if (data.total_count > 0) {
-      $app.logger().info("deploy already pending, skipping dispatch (status=" + status + ")")
-      return
-    }
-  }
-
-  $http.send({
-    method: "POST",
-    url: runsUrl.replace("/runs", "/dispatches"),
-    headers: { ...headers, "Content-Type": "application/json" },
-    body: JSON.stringify({ ref: "main" }),
-  })
-}
-
-onRecordAfterCreateSuccess((e) => {
+onRecordAfterCreateSuccess(function(e) {
   $app.logger().info("onRecordAfterCreateSuccess fired");
-  dispatchIfIdle();
+  try {
+    var token = $os.getenv("GITHUB_TOKEN")
+    var runsUrl = "https://api.github.com/repos/orlando-youth-alliance/site/actions/workflows/hugo.yml/runs"
+    var authHeaders = {
+      Authorization: "Bearer " + token,
+      Accept: "application/vnd.github+json",
+    }
+    var statuses = ["queued", "in_progress"]
+    for (var i = 0; i < statuses.length; i++) {
+      var res = $http.send({ method: "GET", url: runsUrl + "?status=" + statuses[i] + "&per_page=1", headers: authHeaders })
+      console.log("gh check statusCode=" + res.statusCode + " total_count=" + res.json.total_count)
+      if (res.json.total_count > 0) {
+        console.log("deploy already pending, skipping (status=" + statuses[i] + ")")
+        e.next(); return
+      }
+    }
+    console.log("dispatching workflow")
+    var dr = $http.send({ method: "POST", url: "https://api.github.com/repos/orlando-youth-alliance/site/actions/workflows/hugo.yml/dispatches", headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json", "Content-Type": "application/json" }, body: JSON.stringify({ ref: "main" }) })
+    console.log("dispatch response statusCode=" + dr.statusCode)
+  } catch(err) { console.log("hook error: " + err) }
   e.next();
 });
 
-onRecordAfterUpdateSuccess((e) => {
-  if (e.requestInfo().headers["x-deploy-stamp"]) {
-    e.next();
-    return;
-  }
+onRecordAfterUpdateSuccess(function(e) {
+  if (e.request && e.request.header.get("x-deploy-stamp")) { e.next(); return; }
   $app.logger().info("onRecordAfterUpdateSuccess fired");
-  dispatchIfIdle();
+  try {
+    var token = $os.getenv("GITHUB_TOKEN")
+    var runsUrl = "https://api.github.com/repos/orlando-youth-alliance/site/actions/workflows/hugo.yml/runs"
+    var authHeaders = {
+      Authorization: "Bearer " + token,
+      Accept: "application/vnd.github+json",
+    }
+    var statuses = ["queued", "in_progress"]
+    for (var i = 0; i < statuses.length; i++) {
+      var res = $http.send({ method: "GET", url: runsUrl + "?status=" + statuses[i] + "&per_page=1", headers: authHeaders })
+      console.log("gh check statusCode=" + res.statusCode + " total_count=" + res.json.total_count)
+      if (res.json.total_count > 0) {
+        console.log("deploy already pending, skipping (status=" + statuses[i] + ")")
+        e.next(); return
+      }
+    }
+    console.log("dispatching workflow")
+    var dr = $http.send({ method: "POST", url: "https://api.github.com/repos/orlando-youth-alliance/site/actions/workflows/hugo.yml/dispatches", headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json", "Content-Type": "application/json" }, body: JSON.stringify({ ref: "main" }) })
+    console.log("dispatch response statusCode=" + dr.statusCode)
+  } catch(err) { console.log("hook error: " + err) }
   e.next();
 });
 
-onRecordAfterDeleteSuccess((e) => {
+onRecordAfterDeleteSuccess(function(e) {
   $app.logger().info("onRecordAfterDeleteSuccess fired");
-  dispatchIfIdle();
+  try {
+    var token = $os.getenv("GITHUB_TOKEN")
+    var runsUrl = "https://api.github.com/repos/orlando-youth-alliance/site/actions/workflows/hugo.yml/runs"
+    var authHeaders = {
+      Authorization: "Bearer " + token,
+      Accept: "application/vnd.github+json",
+    }
+    var statuses = ["queued", "in_progress"]
+    for (var i = 0; i < statuses.length; i++) {
+      var res = $http.send({ method: "GET", url: runsUrl + "?status=" + statuses[i] + "&per_page=1", headers: authHeaders })
+      console.log("gh check statusCode=" + res.statusCode + " total_count=" + res.json.total_count)
+      if (res.json.total_count > 0) {
+        console.log("deploy already pending, skipping (status=" + statuses[i] + ")")
+        e.next(); return
+      }
+    }
+    console.log("dispatching workflow")
+    var dr = $http.send({ method: "POST", url: "https://api.github.com/repos/orlando-youth-alliance/site/actions/workflows/hugo.yml/dispatches", headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json", "Content-Type": "application/json" }, body: JSON.stringify({ ref: "main" }) })
+    console.log("dispatch response statusCode=" + dr.statusCode)
+  } catch(err) { console.log("hook error: " + err) }
   e.next();
 });
