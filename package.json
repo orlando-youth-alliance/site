@@ -1,0 +1,27 @@
+{
+  "name": "eleventy-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pb": "pocketbase serve --dir=pb/pb_data",
+    "build": "@npx/tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --minify && npx eleventy",
+    "serve": "concurrently \"npm run pb\" \"npx @tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --watch\" \"npx eleventy --serve\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.5",
+    "concurrently": "^9.2.1",
+    "dotenv": "^17.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
+    "cssnano": "^7.1.4",
+    "postcss": "^8.5.8",
+    "prettier": "^3.8.1",
+    "tailwindcss": "^4.2.2"
+  },
+  "type": "module"
+}
