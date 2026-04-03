@@ -1,7 +1,7 @@
 ---
-layout: main.njk
+layout: layouts/landing.njk
 title: Orlando Youth Alliance
-year: 2026
+permalink: /
 ---
 
 <!-- Hero -->
@@ -38,7 +38,7 @@ year: 2026
 <section class="px-8 py-16">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
     <div class="flex-1">
-      <h2 class="text-3xl font-extrabold text-[#1e3a5f] mb-4">Our Mission</h2>
+      <h2 class="text-3xl font-extrabold text-[#1e3a5f] mb-4 dark:text-white">Our Mission</h2>
       <p class="text-lg leading-relaxed mb-4">Orlando Youth Alliance (OYA) provides a safe community space for lesbian, gay, bisexual, transgender and questioning youth in Central Florida.</p>
       <a href="/mission/" class="inline-block mt-2 px-6 py-2.5 bg-[#1e3a5f] text-white font-bold rounded no-underline hover:bg-[#2d5a9e] transition-colors">Read More &rarr;</a>
     </div>

@@ -1,0 +1,15 @@
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-gray-950 text-gray-300 py-10 px-6">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <p class="font-semibold text-white text-lg">Orlando Youth Alliance</p>
+          <p class="text-sm mt-1">A 501(c)(3) nonprofit &mdash; A safe space for LGBT youth in Central Florida</p>
+          <p class="text-sm mt-1 text-gray-500">&copy; {{ year }} Orlando Youth Alliance. All rights reserved.</p>
+        </div>
+        <nav class="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm" aria-label="Footer navigation">
+          {% for item in nav %}
+            <a href="{{ item.url }}" class="hover:text-white transition-colors">{{ item.label }}</a>
+          {% endfor %}
+        </nav>
+      </div>
+    </footer>

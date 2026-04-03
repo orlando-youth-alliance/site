@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* [OYA-HEADER] logo sizing */
 .logo {
@@ -12,4 +13,10 @@
   min-width: 0;
   width: 100%;
   height: auto;
+}
+
+/* make lists single spaced */
+.prose ul,
+.prose ol {
+  line-height: 1;
 }

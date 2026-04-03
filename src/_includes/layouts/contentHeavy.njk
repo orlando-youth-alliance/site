@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title + " | Orlando Youth Alliance" }}</title>
+
+    <!-- additional styling for anything not covered by tailwindcss utility classes -->
+    <link rel="stylesheet" href="/assets/styles/index.css">
+
+    <!-- prevents flashing during dark/light mode switching, please do not remove -->
+    <script src="/assets/js/theme.js"></script>
+
+  </head>
+
+  <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans">
+
+    {% include "partials/header.njk" %}
+
+    <main class="max-w-4xl mx-auto px-4 text-justify prose dark:prose-invert">
+      <h1 class="font-medium">{{ title | safe }}</h1>
+      {% if featuredImage %}
+      <img
+        src="{{ featuredImage }}"
+        class=" float-none mx-auto mb-6 w-full rounded-lg shadow-md
+                sm:float-right sm:ml-6 sm:mb-6 sm:w-72">
+      {% endif %}
+
+      {{ content | safe }}
+    </main>
+
+    {% include "partials/footer.njk" %}
+
+  </body>
+</html>
