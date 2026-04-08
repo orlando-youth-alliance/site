@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pb": "pocketbase serve --dir=pb/pb_data",
-    "build": "@npx/tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --minify && npx eleventy",
-    "serve": "concurrently \"npm run pb\" \"npx @tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --watch\" \"npx eleventy --pathprefix=/site/ --serve\"",
-    "build-ghpages": "npx @tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --minify && npx @11ty/eleventy --pathprefix=/site/"
+    "kill": "pkill -f 'eleventy|tailwindcss|decap-server' || true",
+    "css:build": "npx @tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --minify",
+    "css:watch": "npx @tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --watch",
+    "build": "npm run css:build && npx eleventy",
+    "serve": "concurrently \"npm run css:watch\" \"npx eleventy --pathprefix=/site/ --serve\"",
+    "build-ghpages": "npm run css:build && npx @11ty/eleventy --pathprefix=/site/"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +17,7 @@
   "dependencies": {
     "@11ty/eleventy": "^3.1.5",
     "@tailwindcss/typography": "^0.5.19",
-    "concurrently": "^9.2.1",
-    "dotenv": "^17.4.0"
+    "concurrently": "^9.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.2",
