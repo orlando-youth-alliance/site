@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title + " | Orlando Youth Alliance" }}</title>
+
+    <!-- additional styling for anything not covered by tailwindcss utility classes -->
+    <link rel="stylesheet" href="/assets/styles/index.css">
+
+    <!-- prevents flashing during dark/light mode switching, please do not remove -->
+    <script src="/assets/js/theme.js"></script>
+
+  </head>
+
+  <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans">
+
+    {% include "partials/header.njk" %}
+
+    <main class="max-w-4xl mx-auto px-4 my-10 text-justify prose dark:prose-invert">
+      <h1 class="font-medium">{{ title | safe }}</h1>
+
+      {% if donationLink %}
+      <div class="not-prose w-full sm:w-1/3 mx-auto mb-8">
+        <a href="{{ donationLink }}" target="_blank" rel="noopener noreferrer"
+          class="block w-full text-center text-2xl font-bold text-black bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-500 rounded-2xl px-8 py-5 shadow-md transition-colors mb-2">
+          Donate Now
+        </a>
+        <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" class="mx-auto">
+        <section style="font-size: 0.75rem;">
+						<img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;">
+					  </section>
+
+        <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;">
+      </div>
+      {% endif %}
+
+      {% if infoImage %}
+      <img
+        src="{{ infoImage }}"
+        class=" float-none mx-auto mb-6 w-full rounded-lg shadow-md
+                sm:float-right sm:ml-6 sm:mb-6 sm:w-72">
+      {% endif %}
+
+      {{ content | safe }}
+
+      {% if featuredImage %}
+      <img
+        src="{{ featuredImage }}"
+        class="float-none mx-auto mb-6 w-full rounded-lg shadow-md
+                ">
+      {% endif %}
+
+      {% if donationBlurb %}
+      {{ donationBlurb | safe }}
+      {% endif %}
+    </main>
+
+    {% include "partials/footer.njk" %}
+
+  </body>
+</html>

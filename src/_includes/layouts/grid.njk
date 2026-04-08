@@ -17,21 +17,33 @@
 
     {% include "partials/header.njk" %}
 
-    <main class="max-w-4xl mx-auto px-4 text-justify prose dark:prose-invert">
+    <main class="max-w-4xl mx-auto px-4 my-10 text-justify prose dark:prose-invert">
       <h1 class="font-medium">{{ title | safe }}</h1>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-        {% for partner in partners %}
-        <div class="flex flex-col items-center justify-center p-4 rounded-lg shadow-sm border">
+      {% for tierName, tierPartners in partners %}
+      <div class="not-prose mt-8 mb-2">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">{{ tierName }}</h2>
+        <hr class="mt-2 border-gray-200 dark:border-gray-700">
+      </div>
+      <div class="not-prose grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 mb-6">
+        {% for partner in tierPartners %}
+        <div class="flex flex-col items-center justify-center p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
           {% if partner.logo %}
-          <img src="{{partner.logo}}" class="max-h-20 max-w-full object-contain mb-2">
-          {% endif %}
-          <span class="text-center text-sm font-medium">
+          <a href="{{ partner.url }}" target="_blank" rel="noopener noreferrer">
+            <img src="{{ partner.logo }}" class="max-h-20 max-w-full object-contain mb-2">
+          </a>
+          {% elif partner.url %}
+          <a href="{{ partner.url }}" target="_blank" rel="noopener noreferrer"
+            class="text-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
             {{ partner.name }}
-          </span>
+          </a>
+          {% else %}
+          <span class="text-center text-sm font-medium">{{ partner.name }}</span>
+          {% endif %}
         </div>
         {% endfor %}
       </div>
+      {% endfor %}
     </main>
 
     {% include "partials/footer.njk" %}

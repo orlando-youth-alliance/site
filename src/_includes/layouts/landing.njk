@@ -18,7 +18,74 @@
     {% include "partials/header.njk" %}
 
     <main>
-      {{ content | safe }}
+
+      <!-- Hero -->
+      <section class="relative overflow-hidden">
+        <div class="absolute inset-0">
+          <img src="/assets/img/CoverImageOya.jpg" alt="" role="presentation" class="w-full h-full object-cover">
+          <!-- [OYA-HERO] brand gradient overlay -->
+          <div class="absolute inset-0 bg-gradient-to-br from-[#1e3a5f]/60 to-[#38c4c1]/40"></div>
+        </div>
+        <div class="relative px-4 py-20 sm:py-32 flex justify-center">
+          <div class="bg-white/40 rounded-2xl p-6 sm:p-8 text-center w-3/4 max-w-2xl">
+            <!-- [OYA-HERO] partner logos use .hero-partner-logos img for equal flex sizing -->
+            <div class="hero-partner-logos flex flex-nowrap justify-center items-center gap-4 pt-6 pb-2">
+              <img src="/assets/img/SYA-horizontal.png" alt="Seminole Youth Alliance">
+              <img src="/assets/img/LYA-horizontal.png" alt="Lakeland Youth Alliance">
+              <img src="/assets/img/OsceolaYA-logo.gif" alt="Osceola Youth Alliance">
+            </div>
+            <!-- [OYA-HERO] tagline strip bleeds past card padding -->
+            <div class="bg-yellow-300 py-8 mt-3 text-4xl text-black">{{ tagline | safe }}</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Links -->
+      <div class="grid grid-cols-2 md:grid-cols-4">
+        {% for link in quickLinks %}
+        <a href="{{ link.url }}"
+          style="background-color: {{ link.bg }}; color: {{ link.textColor }};"
+          class="flex items-center justify-center py-12 px-6 text-center text-2xl font-bold no-underline hover:brightness-110 transition-all">
+          {{ link.label }}
+        </a>
+        {% endfor %}
+      </div>
+
+      {% for section in sections %}
+
+      {% if section.type == "accent" %}
+      <!-- Accent: bg color, text + button centered -->
+      <section class="px-8 py-16 text-center" style="background-color: {{ section.bg }}; color: {{ section.textColor }};">
+        <div class="max-w-3xl mx-auto">
+          {% if section.title %}
+          <h2 class="text-3xl font-extrabold mb-4">{{ section.title }}</h2>
+          {% endif %}
+          <div class="prose dark:prose-invert text-2xl leading-relaxed max-w-none" style="color: {{ section.textColor }};">{{ section.body | md | safe }}</div>
+          <a href="{{ section.url }}" class="inline-block mt-2 px-6 py-2.5 bg-[#1e3a5f] text-white font-bold rounded no-underline hover:bg-[#2d5a9e] transition-colors">{{ section.urlLabel }} &rarr;</a>
+        </div>
+      </section>
+
+      {% elif section.type == "panel" %}
+      <!-- Panel: image + text, no bg, text left-aligned -->
+      <section class="px-8 py-16">
+        <div class="max-w-6xl mx-auto flex flex-col {{ 'md:flex-row-reverse' if section.imageAlign == 'left' else 'md:flex-row' }} items-center gap-12">
+          {% if section.image %}
+          <div class="w-full md:w-2/5 shrink-0">
+            <img src="{{ section.image }}" alt="{{ section.imageAlt }}" class="w-full h-auto rounded-lg">
+          </div>
+          {% endif %}
+          <div class="flex-1 text-left">
+            {% if section.title %}
+            <h2 class="text-3xl font-extrabold text-[#1e3a5f] dark:text-white mb-4">{{ section.title }}</h2>
+            {% endif %}
+            <div class="prose dark:prose-invert text-lg leading-relaxed max-w-none">{{ section.body | md | safe }}</div>
+            <a href="{{ section.url }}" class="inline-block mt-2 px-6 py-2.5 bg-[#1e3a5f] text-white font-bold rounded no-underline hover:bg-[#2d5a9e] transition-colors">{{ section.urlLabel }} &rarr;</a>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+
+      {% endfor %}
     </main>
 
     {% include "partials/footer.njk" %}
