@@ -6,7 +6,8 @@
   "scripts": {
     "pb": "pocketbase serve --dir=pb/pb_data",
     "build": "@npx/tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --minify && npx eleventy",
-    "serve": "concurrently \"npm run pb\" \"npx @tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --watch\" \"npx eleventy --serve\""
+    "serve": "concurrently \"npm run pb\" \"npx @tailwindcss/cli -i src/assets/styles/index.css -o _site/assets/styles/index.css --watch\" \"npx eleventy --serve\"",
+    "build-ghpages": "npx @11ty/eleventy --pathprefix=/site/"
   },
   "keywords": [],
   "author": "",
