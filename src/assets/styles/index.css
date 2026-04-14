@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* tell Tailwind v4 to use the .dark class on <html> instead of the OS media query only */
+@custom-variant dark (&:is(.dark, .dark *));
+
 /* [OYA-HEADER] logo sizing */
 .logo {
   max-height: 80px;

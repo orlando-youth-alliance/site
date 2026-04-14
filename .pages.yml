@@ -1,28 +1,183 @@
-media: src/assets/img
+media:
+  - name: images
+    label: Images
+    input: src/assets/img
+    output: /assets/img
+    extensions: [jpg, jpeg, png, gif, svg, webp, avif]
+  - name: documents
+    label: Documents
+    input: src/assets/pdf
+    output: /assets/pdf
+    extensions: [pdf]
+
+components:
+  partner_item:
+    label: Partner
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: url
+        label: Website URL
+        type: string
+      - name: logo
+        label: Logo
+        type: image
 
 content:
+  # ── Standard content pages ────────────────────────────────────────────────
   - name: pages
     label: Pages
     type: collection
     path: src/content
+    exclude:
+      - index.md
+      - donate.md
+      - partners.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: permalink
+        label: URL Path
+        type: string
+        hidden: true
+      - name: layout
+        label: Layout
+        type: string
+        hidden: true
+      - name: body
+        label: Content
+        type: rich-text
+
+  # ── Homepage ──────────────────────────────────────────────────────────────
+  - name: homepage
+    label: Homepage
+    type: file
+    path: src/content/index.md
+    fields:
+      - name: title
+        label: Page Title
+        type: string
+      - name: tagline
+        label: Hero Tagline
+        type: string
+        description: Large text displayed in the yellow banner on the hero image
+      - name: quickLinks
+        label: Quick Links
+        type: list
+        fields:
+          - name: label
+            label: Label
+            type: string
+            required: true
+          - name: url
+            label: URL
+            type: string
+            required: true
+          - name: bg
+            label: Background Color
+            type: string
+            description: "Hex color e.g. #4ecdc4"
+          - name: textColor
+            label: Text Color
+            type: string
+            description: "Color name or hex e.g. white or #1f2937"
+      - name: layout
+        type: string
+        hidden: true
+      - name: permalink
+        type: string
+        hidden: true
+      - name: body
+        label: Page Sections
+        type: rich-text
+        description: >
+          Use {% panel "/assets/img/foo.jpg", "alt", "right", "/url/", "Label" %}...{% endpanel %}
+          and {% accent "#hex", "#textHex", "/url/", "Label" %}...{% endaccent %} shortcodes.
+
+  # ── Donate page ───────────────────────────────────────────────────────────
+  - name: donate
+    label: Donate Page
+    type: file
+    path: src/content/donate.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: donationLink
+        label: PayPal Donation URL
+        type: string
+        description: Full PayPal.com donate URL including hosted_button_id parameter
+      - name: permalink
+        type: string
+        hidden: true
+      - name: layout
+        type: string
+        hidden: true
+      - name: body
+        label: Content
+        type: rich-text
+
+  # ── Partners page ─────────────────────────────────────────────────────────
+  - name: partners
+    label: Partners
+    type: file
+    path: src/content/partners.md
     fields:
       - name: title
         label: Title
         type: string
       - name: permalink
-        label: Permalink
         type: string
+        hidden: true
       - name: layout
-        label: Layout
-        type: select
-        options:
-          values:
-            - layouts/landing.njk
-            - layouts/contentHeavy.njk
-            - layouts/grid.njk
-      - name: featuredImage
-        label: Featured Image
-        type: image
-      - name: body
-        label: Body
-        type: rich-text
+        type: string
+        hidden: true
+      - name: partners
+        label: Partner Tiers
+        type: list
+        fields:
+          - name: tier
+            label: Tier Name
+            type: string
+            required: true
+            description: "e.g. Over $10,000 or $5,000 - $9,999"
+          - name: items
+            label: Partners
+            type: list
+            fields:
+              - component: partner_item
+
+  # ── Navigation ────────────────────────────────────────────────────────────
+  # Note: nav.js and footer.js are JavaScript modules. Pages CMS edits them
+  # as raw code. To enable structured list editing, convert them to .json files
+  # and update the Eleventy data files to use JSON instead.
+  - name: navigation
+    label: Navigation
+    type: group
+    content:
+      - name: main-nav
+        label: Header Navigation
+        type: file
+        path: src/_data/nav.js
+        format: raw
+        fields:
+          - name: body
+            label: Navigation Links
+            type: code
+            options:
+              lang: javascript
+      - name: footer-nav
+        label: Footer Navigation
+        type: file
+        path: src/_data/footer.js
+        format: raw
+        fields:
+          - name: body
+            label: Footer Links
+            type: code
+            options:
+              lang: javascript
