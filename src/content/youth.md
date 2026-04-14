@@ -2,8 +2,9 @@
 permalink: /youth/
 layout: layouts/contentHeavy.njk
 title: Youth
-featuredImage: /assets/img/YouthHome.jpg
 ---
+
+{% img "/assets/img/YouthHome.jpg", "Youth", "right" %}
 
 ## Is this you?
 Are you between the ages of 13 and 23? Are you curious about your sexuality or gender identity? Do you feel alone? Are you gay, lesbian, bisexual, transgender, questioning or a straight ally? Do you feel isolated at school? Are you having problems dealing with the issues of your sexuality? Do you want to be around others like you? Do you want to be part of an organization that emotionally supports LGBTQ members in a positive, non-threatening, non-judgmental environment?

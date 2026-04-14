@@ -2,9 +2,9 @@
 permalink: /contact/
 layout: layouts/contentHeavy.njk
 title: Contact us
-featuredImage: /assets/img/contact-us.jpeg
-secondaryImage: 
 ---
+
+{% img "/assets/img/contact-us.jpeg", "Contact us", "right" %}
 
 We look forward to hearing from you!
 

@@ -51,41 +51,7 @@
         {% endfor %}
       </div>
 
-      {% for section in sections %}
-
-      {% if section.type == "accent" %}
-      <!-- Accent: bg color, text + button centered -->
-      <section class="px-8 py-16 text-center" style="background-color: {{ section.bg }}; color: {{ section.textColor }};">
-        <div class="max-w-3xl mx-auto">
-          {% if section.title %}
-          <h2 class="text-3xl font-extrabold mb-4">{{ section.title }}</h2>
-          {% endif %}
-          <div class="prose dark:prose-invert text-2xl leading-relaxed max-w-none" style="color: {{ section.textColor }};">{{ section.body | md | safe }}</div>
-          <a href="{{ section.url }}" class="inline-block mt-2 px-6 py-2.5 bg-[#1e3a5f] text-white font-bold rounded no-underline hover:bg-[#2d5a9e] transition-colors">{{ section.urlLabel }} &rarr;</a>
-        </div>
-      </section>
-
-      {% elif section.type == "panel" %}
-      <!-- Panel: image + text, no bg, text left-aligned -->
-      <section class="px-8 py-16">
-        <div class="max-w-6xl mx-auto flex flex-col {{ 'md:flex-row-reverse' if section.imageAlign == 'left' else 'md:flex-row' }} items-center gap-12">
-          {% if section.image %}
-          <div class="w-full md:w-2/5 shrink-0">
-            <img src="{{ section.image }}" alt="{{ section.imageAlt }}" class="w-full h-auto rounded-lg">
-          </div>
-          {% endif %}
-          <div class="flex-1 text-left">
-            {% if section.title %}
-            <h2 class="text-3xl font-extrabold text-[#1e3a5f] dark:text-white mb-4">{{ section.title }}</h2>
-            {% endif %}
-            <div class="prose dark:prose-invert text-lg leading-relaxed max-w-none">{{ section.body | md | safe }}</div>
-            <a href="{{ section.url }}" class="inline-block mt-2 px-6 py-2.5 bg-[#1e3a5f] text-white font-bold rounded no-underline hover:bg-[#2d5a9e] transition-colors">{{ section.urlLabel }} &rarr;</a>
-          </div>
-        </div>
-      </section>
-      {% endif %}
-
-      {% endfor %}
+      {{ content | safe }}
     </main>
 
     {% include "partials/footer.njk" %}

@@ -2,8 +2,9 @@
 permalink: /mission/
 layout: layouts/contentHeavy.njk
 title: Our mission
-featuredImage: /assets/img/OurMissionHome.jpg
 ---
+
+{% img "/assets/img/OurMissionHome.jpg", "Our mission", "right" %}
 
 The mission of the Orlando Youth Alliance and its chapters is to provide a safe space for lesbian, gay, bisexual, transgender and questioning youth in Central Florida.  
 

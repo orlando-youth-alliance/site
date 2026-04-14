@@ -2,8 +2,9 @@
 permalink: /parents/
 layout: layouts/contentHeavy.njk
 title: Parents
-featuredImage: /assets/img/ParentHome.jpg
 ---
+
+{% img "/assets/img/ParentHome.jpg", "Parents", "right" %}
 
 Orlando Youth Alliance is a safe, practical option for your child to find positive role models, make new friends, and discuss the important topics with their peers and become involved in the community. Adult facilitators attend all meetings and events. All adult facilitators have received a criminal background check.
 

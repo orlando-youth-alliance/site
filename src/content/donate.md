@@ -1,15 +1,11 @@
 ---
 permalink: /donate/
-layout: layouts/donations.njk
+layout: layouts/contentHeavy.njk
 title: Donate
-infoImage: /assets/img/donateInfo.jpeg
-featuredImage: /assets/img/DonateMainImage.png
 donationLink: https://www.paypal.com/donate/?hosted_button_id=U584UVALMWSSQ
-donationBlurb: |
-  Orlando Youth Alliance is a 501(c)(3) nonprofit organization so all donations are tax deductible to the extent allowed by law. Our major expenses are rental fees for venue space, website services, printing, postage, insurance and supplies for this all volunteer organization. Revenue is generated through special events, corporate sponsorships, foundations and general public contributors.
-  <br><br>
-  A COPY OF THE OFFICIAL REGISTRATION OF ORLANDO YOUTH ALLIANCE, INC. (#CH25270) AND FINANCIAL INFORMATION MAY BE OBTAINED FROM THE DIVISION OF CONSUMER SERVICES AT WWW.800HELPFLA.COM OR BY CALLING TOLL-FREE 1-800-435-7352 WITHIN THE STATE. REGISTRATION DOES NOT IMPLY ENDORSEMENT, APPROVAL, OR RECOMMENDATION BY THE STATE.
 ---
+
+{% img "/assets/img/donateInfo.jpeg", "donation info", "right" %}
 
 ## Every dollar helps!
 
@@ -31,3 +27,7 @@ Ways to donate:
 
 
 [CLICK HERE to learn how to add OYA to your will or trust](https://orlandoyouthalliance.org/ContentPage?id=33)
+
+{% img "/assets/img/DonateMainImage.png", "donation main image" %}
+
+{% include "partials/donationBlurb.njk" %}

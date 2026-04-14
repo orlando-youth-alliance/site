@@ -2,8 +2,9 @@
 layout: layouts/contentHeavy.njk
 permalink: /grants/
 title: Grants
-featuredImage: /assets/img/grants.jpeg
 ---
+
+{% img "/assets/img/grants.jpeg", "Grants", "right" %}
 
 Orlando Youth Alliance offers grants to support local Gay-Straight Alliance / Gender Sexuality Alliance (GSA). You can apply for up to $300 to help with the general operating expenses of your club. Criteria to apply/rules:
 

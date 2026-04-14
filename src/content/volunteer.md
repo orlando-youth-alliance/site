@@ -2,8 +2,9 @@
 permalink: /volunteer/
 layout: layouts/contentHeavy.njk
 title: Volunteer
-featuredImage: /assets/img/VolunteerHome.jpg
 ---
+
+{% img "/assets/img/VolunteerHome.jpg", "Volunteer", "right" %}
 
 ## Adult Volunteerism
 

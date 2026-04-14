@@ -15,8 +15,63 @@
   height: auto;
 }
 
+/* restore table font to match surrounding prose text */
+.prose table {
+  font-size: inherit;
+  font-family: inherit;
+}
+
+/* allow prose tables to shrink to content width so they can sit beside floats */
+.prose table {
+  width: auto;
+  max-width: 100%;
+}
+
+/* widetable shortcode always spans full width */
+.oya-widetable table {
+  width: 100%;
+}
+
 /* make lists single spaced */
 .prose ul,
 .prose ol {
   line-height: 1;
+}
+
+/* [OYA-WIDETABLE] stacked layout on narrow screens */
+@media (max-width: 640px) {
+  .oya-widetable table,
+  .oya-widetable tbody,
+  .oya-widetable tr,
+  .oya-widetable td {
+    display: block;
+    width: 100%;
+  }
+  .oya-widetable thead {
+    display: none;
+  }
+  .oya-widetable tr {
+    border-bottom: 1px solid var(--tw-prose-td-borders, #e5e7eb);
+    padding: 0.4rem 0;
+  }
+  .oya-widetable td {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.1rem 0;
+    border: none !important;
+    font-size: 0.875rem;
+  }
+  .oya-widetable td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    min-width: 5.5rem;
+    flex-shrink: 0;
+    color: var(--tw-prose-headings, #111827);
+  }
+}
+
+/* makes linked image text non selectable, use this combined with js */
+a img {
+  user-select: none;
+  cursor: pointer;
 }
